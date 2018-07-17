@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="navbar-right navbar-title">
-                <p>im@sparql.doc</p>
+                <p id="pageTitle">im@sparql.doc</p>
             </div>
         </div>
     </nav>
@@ -35,6 +35,10 @@
                 </li>
             </ol>
     </div>
+    <script>
+        var title=document.getElementById("pageTitle");
+        title.innerText=document.title;
+    </script>
 </body>
 
 </html>
