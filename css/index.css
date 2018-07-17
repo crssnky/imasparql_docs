@@ -49,3 +49,26 @@ div.active{
     margin-left: 15px;
     border-color: rgb(72, 72, 72);
 }
+.page-header > h2{
+    margin-bottom: 0px;
+}
+
+.jumbotron{
+    background-color: #303048;
+    color: white;
+    text-align: center;
+}
+
+.container{
+    width: 90%;
+}
+
+p.descript {
+    font-size: 20px;
+    text-align: center;
+}
+
+.fonts {
+    font-family: HGPGothicE, "ヒラギノ角ゴ Pro W3",sans-serif;
+    font-weight: bold;
+}
