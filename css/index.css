@@ -68,7 +68,7 @@ p.descript {
     text-align: center;
 }
 
-.fonts {
-    font-family: HGPGothicE, "ヒラギノ角ゴ Pro W3",sans-serif;
-    font-weight: bold;
+.pageItems {
+    font-size: 20px;
+    margin-left: 15px;
 }
