@@ -1,7 +1,5 @@
 body {
     padding-top: 50px;
-    overflow: hidden;
-    height: 100%;
     background-color: mistyrose;
 }
 
@@ -64,11 +62,26 @@ div.active{
 }
 
 p.descript {
+    font-size: 30px;
+}
+dl.descript{
     font-size: 20px;
-    text-align: center;
 }
 
 .pageItems {
     font-size: 20px;
     margin-left: 15px;
+}
+
+.splash {
+    text-align: center;
+    background-image: url("img/top.png");
+    background-size: cover;
+    width: 100%;
+    margin: 0;
+    color:#333;
+}
+
+h1.jumbo {
+    font-size: 60px;
 }

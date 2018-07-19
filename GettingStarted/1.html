@@ -13,7 +13,7 @@
     </script>
 
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1">
     <title>im@sparqlとは</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -32,8 +32,60 @@
         <div class="page-header">
             <h1>
                 im@sparqlとは
-                <small>目的と効能</small>
+                <small>目的と提供物</small>
             </h1>
         </div>
+        <div class="jumbotron splash">
+            <h1 class="jumbo">im@sparql</h1>
+            <p class="descript">im@s + sparql = im@sparql</p>
+            <p class="fonts">
+                広がるアイマスワールドをオープンデータ化
+                <br> WebやアプリからSPARQLで検索・利用可能なエンドポイント
+            </p>
+        </div>
+        <br>
+        <dl class="descript">
+            <dt>これはim@sparqlの掲げる目標です。</dt>
+            <dd>                
+                現在進行系で広がっているアイマスワールドは、とても広く、多岐にわたる作品があります。それら全てを記憶することは難しいと思います。<br>
+                im@sparqlは、その世界をデータベースに映すことで、記憶していないプロデューサーやファンでも容易にアイマスワールドの知識を得ることができます。
+            </dd>
+            <br>
+            <dt>提供するものはデータベースそのものです。</dt>
+            <dd>                
+                im@sparqlは、オープンデータプラットフォームです。<br>
+                すでに誰かの手によって見やすい形に整えられた表ではありません。RDFで記述されたLinked Open Data(LOD)です。<br>
+                LODを操作するには、「SPARQL」というクエリ言語を用います。<br>
+                これにより、どんな複雑な条件でも検索することができます。<br>
+                このクエリは、エンドポイントに対してGetやPostメソッドを用いて渡すことにより、その結果を取得することができます。<br>
+                それができる環境であれば、Webアプリやネイティブアプリなどアプリケーションの形態を選ぶことはありません。<br>
+                <br>
+                SPARQLについては、W3Cの公式ドキュメントをご覧ください。また、<a href="https://asahi-net.jp/">株式会社朝日ネット</a>さんによる日本語訳を必要に応じて参考にしてください。
+                <ul>
+                    <li>
+                        <a href="https://www.w3.org/TR/sparql11-overview/">SPARQL 1.1</a>
+                    </li>
+                    <li>
+                        <a href="http://www.asahi-net.or.jp/~ax2s-kmtn/internet/rdf/REC-sparql11-query-20130321.html">SPARQL 1.1(日本語訳)</a>
+                    </li>
+                </ul>
+            </dd>
+            <br>
+            <dt>データベース追加・修正ができます。</dt>
+            <dd>                
+                データベースの中身自体はGitHub上で管理されています。
+                <ul>
+                    <li>
+                        <a href="https://github.com/imas/imasparql">https://github.com/imas/imasparql</a>
+                    </li>
+                </ul>
+                ここには、RDFが生の状態で配置されています。im@sparqlはここからデータをPullしてデータベースとして働きます。<br>
+                なので、追加や修正などデータベースの中身についての意見があれば、GitHub上でissueかPullRequestしてください。<br>
+                <small>※一部データはGitHub上にありません。<br>
+                    ※現在データベースへの反映は手動で行っているため、PRのマージがされてもデータベース自体に時間がかかる場合があります。</small>
+            </dd>
+        </dl>
     </div>
 </body>
+
+</html>
