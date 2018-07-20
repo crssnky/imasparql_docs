@@ -92,3 +92,24 @@ h1.jumbo {
 span.aks {
     display: inline-block;
 }
+
+.highlight{
+    background-color: rgb(238, 238, 238);
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+code{
+    color: #219;
+    background-color: #ffffff;    
+}
+code.Reserved-Word{
+    color: #708;
+}
+code.IRI{
+    color: #085;
+}
+code.Prefix{
+    color: #f50;
+}
