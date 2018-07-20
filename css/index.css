@@ -109,6 +109,7 @@ code > span.Reserved-Word{
 }
 code > span.IRI{
     color: #085;
+    word-break: break-all;
 }
 code > span.Prefix{
     color: #f50;
