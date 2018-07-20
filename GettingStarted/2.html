@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51356556-8');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1">
+    <title>im@sparqlに触れてみる</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link async href="../css/index.css" rel="stylesheet">
+    <script defer src="../../js/jquery.min.js"></script>
+    <script defer src="../../js/jquery.xdomainajax.js"></script>
+    <script defer src="../../js/bootstrap.min.js"></script>
+    <script defer src="../js/index.js"></script>
+</head>
+
+<body onload="loadCommon();">
+    <!-- 共通 -->
+    <div id="common"></div>
+    <!-- 説明 -->
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <span class="aks">im@sparqlに触れてみる</span>
+                <span class="aks">
+                    <small>SPARQLとは</small>
+                </span>
+            </h1>
+        </div>
+        <div class="highlight">
+            <small>
+                <dt>注意</dt>
+                <dd>
+                    当ドキュメントはSPARQLの詳しい解説はしません。SPARQLについては
+                    <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/">こちら</a>から。
+                </dd>
+            </small>
+        </div>
+        <br>
+        <dl class="descript">
+            <dt>クエリを投げる</dt>
+            <dd>
+                <img class="img-thumbnail" src="../css/img/query.png" alt="im@sparql top" /> im@sparqlのトップページにあるこの入力フォームは、実際にクエリを入力してその結果を知るためのものです。
+                <br> 目的とする結果が得られるまでは、こちらのフォームで試すと良いです。
+                <br> サイトに入ったときにすでに入力されているクエリはこちらです
+                <script src="https://gist.github.com/crssnky/97c0c82f9e323b03f61766de41512e65.js"></script> 上部にある
+                <code><span class="Reserved-Word">PREFIX</span></code>は、その名の通り接頭辞を宣言しています。
+                <br> RDFではデータを、
+                <a href="https://www.w3.org/TR/rdf11-primer/#section-triple">トリプル(Triple)</a>と呼んでいる主語・述語・目的語の3つの関係で表現しています。これらは全て
+                <a href="https://www.w3.org/TR/rdf11-primer/#section-IRI">IRI</a>で表すことができます。
+                <br> その
+                <a href="https://www.w3.org/TR/rdf11-primer/#section-IRI">IRI</a>は、長く、何度も出てきて冗長になってしまうため、
+                <code><span class="Reserved-Word">PREFIX</span></code>を使って省略することができます。
+                <br>
+                <code><span class="Reserved-Word">PREFIX</span><span class="Prefix"> imas: </span><span class="IRI">&lt;https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl#&gt;</span></code>
+                <br>つまりこの行は、
+                <code><span class="IRI">https～</span></code>を、今後は
+                <code><span class="Prefix">imas:</span></code>で表しますよ～と宣言しています。
+            </dd>
+        </dl>
+    </div>
+    <br>
+    <br>
+    <br>
+</body>
+
+</html>

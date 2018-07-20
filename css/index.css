@@ -104,12 +104,12 @@ code{
     color: #219;
     background-color: #ffffff;    
 }
-code.Reserved-Word{
+code > span.Reserved-Word{
     color: #708;
 }
-code.IRI{
+code > span.IRI{
     color: #085;
 }
-code.Prefix{
+code > span.Prefix{
     color: #f50;
 }
