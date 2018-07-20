@@ -88,3 +88,7 @@ dl.descript{
 h1.jumbo {
     font-size: 60px;
 }
+
+span.aks {
+    display: inline-block;
+}
