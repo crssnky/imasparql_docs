@@ -17,6 +17,9 @@ body {
 .navbar-left{
     margin-left: -15px;
 }
+.navbar-right{
+    text-align: right;
+}
 .navbar-button{
     margin-bottom: 0px;
     margin-top: 4px;
