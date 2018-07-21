@@ -70,7 +70,46 @@
                 <br>もし、その後
                 <code><span class="Prefix">imas:Idol</span></code>という文字列が出てきたら、それは
                 <code><span class="IRI">https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl#Idol</span></code>として解釈されます。
-
+                <br>
+                <br>下部あるSQLに似ている所が実際のクエリです。
+                <br>SQLと同じように、
+                <code><a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#select"><span class="Reserved-Word">SELECT</span></a></code>以下は表示したい変数を指定するところです。
+                <br>
+                <code><a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#modDistinct"><span class="Reserved-Word">distinct</span></a></code>などのSQLにも存在するキーワードが使える場合があります。詳しくは
+                <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/">こちら</a>から。
+                <br>
+                <code><a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#select"><span class="Reserved-Word">WHERE</span></a></code>以下は条件を設定するところです。
+                <br>SPARQLでは、頭に「?」を付けた文字列を変数として認識します。im@sparqlが建っている
+                <a href="https://jena.apache.org/">Apache Jena</a>の
+                <a href="https://jena.apache.org/documentation/fuseki2/index.html">Fuseki2</a>では、マルチバイト文字も変数として利用できます。なので、上記のサンプルクエリでも正常に動作します。
+                <br>12行目の
+                <code>?主語 ?述語 ?目的語.</code>は、トリプル全てに対して条件無しで受け入れることになります。
+                <br>一方で13行目の
+                <code>?述語 <span class="Prefix">rdfs:label</span> ?述語名</code>は、述語が
+                <code><span class="Prefix">rdfs:label</span></code>のものだけを受け入れることになります。また、この行のトリプルの主語である
+                <code>?述語</code>
+                <s>(ややこしいな)</s>は、12行目のトリプルの述語の変数
+                <code>?述語</code>と同じため、このとき検索されるトリプルの主語としての
+                <code>?述語</code>はトリプルの述語として利用されたもののみとなります。
+                <br>さらに、13行目に現れる
+                <code><span class="Reserved-Word">optional</span></code>句は、そのスコープ内の条件を満たさなくてもスコープ外の条件さえ満たしていれば検索に引っかけられるようにするものです。言い換えれば、「optionalの条件に合うものもあれば結果に付け足しといて。あればでいいから。」ということです。
+                <br>14行目は、
+                <code><span class="Reserved-Word">WHERE</span></code>を閉じ、得られた結果に対して
+                <code><a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#modOrderBy"><span class="Reserved-Word">order</span></a></code>でソートを指定しています。ルールについては
+                <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#modOrderBy">ドキュメント</a>をご覧ください。
+                <br>以上より、このクエリの内容を日本語で表現するとすれば、
+                <div class="container">
+                    <br>「データベース内のトリプルを無条件に取得し、その中で述語(
+                    <code>?述語</code>)を主語とした時に
+                    <code><span class="Prefix">rdfs:label</span></code>という述語を持つものがあれば、その時の目的語(
+                    <code>?述語名</code>)も取得する。その結果を述語(
+                    <code>?述語</code>)に対するソートを行い、
+                    <code>?述語</code>、
+                    <code>?述語名</code>の組み合わせを被りなしで表示する。」
+                </div>
+                <br>というものになります。結果は
+                <a href="https://sparql.crssnky.xyz/spql/imas/query?force-accept=text%2Fplain&query=PREFIX%20schema%3A%20<http%3A%2F%2Fschema.org%2F>%0APREFIX%20rdf%3A%20<http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23>%0APREFIX%20imas%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FURIs%2Fimas-schema.ttl%23>%0APREFIX%20imasrdf%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FRDFs%2Fdetail%2F>%0APREFIX%20foaf%3A%20<http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F>%0APREFIX%20math%3A%20<http%3A%2F%2Fwww.w3.org%2F2005%2Fxpath-functions%2Fmath%23>%0APREFIX%20xsd%3A%20<https%3A%2F%2Fwww.w3.org%2FTR%2Fxmlschema11-2%2F%23>%0APREFIX%20rdfs%3A%20%20<http%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23>%0A%0ASELECT%20distinct%20%3F述語%20%3F述語名%0AWHERE%20%7B%0A%20%20%3F主語%20%3F述語%20%3F目的語.%0A%20%20optional%7B%3F述語%20rdfs%3Alabel%20%3F述語名%7D.%0A%7Dorder%20by%20%3F述語">こちら</a>。
+                <br>取得できる結果は、im@sparqlで使われている述語と、取得できればその述語の名前になります。
             </dd>
         </dl>
     </div>
