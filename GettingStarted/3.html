@@ -51,7 +51,7 @@
         </div>
         <br>
         <dl class="descript">
-            <dt>簡単なクエリとは</dt>
+            <dt>クラスを探す</dt>
             <dd>
                 im@sparqlを使う人にとって、シンプルかつ自分の知識と照らし合わせやすい、一番最適なクエリはアイドルのプロフィールに関するデータだと思います。
                 <br>ここでは、
@@ -90,7 +90,52 @@
                     <span class="Prefix">imas:Idol</span>
                 </code>です。そこの
                 <code>?説明</code>も同時に見れると思います
-                <s>(ちゃんとした説明でないことが分かる)</s>。
+                <s>(ちゃんとした説明でないことも分かる)</s>。
+                <br>
+                <br>これで、アイドルを示すクラスのIRIを取得することができました。このクラスのインスタンスの中から千早さんのプロフィールを探しましょう。
+                <br>
+                <dt>目的の主語を探す</dt>
+                <br>im@sparqlでは、全てのインスタンスに対して
+                <code>
+                    <a href="http://schema.org/name">schema:name</a>
+                </code>による名前付けがされています。この述語から千早さんの目的語を持つ主語を見つけましょう。
+                <br>
+                <code>?アイドルの主語
+                    <span class="Prefix">schema:name</span> ?アイドル名.</code>を投げて目grepをするのもよいですが...いや、良くないので、
+                <code>
+                    <span class="Reserved-Word">
+                        <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#termConstraint">filter</a>
+                    </span>
+                </code>を使って必要なものだけを取り出そうと思います。
+                <code>
+                    <span class="Reserved-Word">filter</span>
+                </code>を通す条件は
+                <code>
+                    <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#func-contains">contains</a>
+                </code>を使います。これは名前の通り、第1引数の文字列に第2引数の文字列が含まれていたらTrueが返ってくる関数です。
+                <br>というわけで、千早さんを示す主語を見つけるクエリはこちら。
+                <script src="https://gist.github.com/crssnky/23881734e35fe3e7bccb44b8f2ecbb45.js"></script>
+                結果は
+                <a href='https://sparql.crssnky.xyz/spql/imas/query?force-accept=text%2Fplain&query=PREFIX%20schema%3A%20<http%3A%2F%2Fschema.org%2F>%0APREFIX%20rdf%3A%20<http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23>%0APREFIX%20imas%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FURIs%2Fimas-schema.ttl%23>%0APREFIX%20imasrdf%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FRDFs%2Fdetail%2F>%0APREFIX%20foaf%3A%20<http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F>%0APREFIX%20math%3A%20<http%3A%2F%2Fwww.w3.org%2F2005%2Fxpath-functions%2Fmath%23>%0APREFIX%20xsd%3A%20<https%3A%2F%2Fwww.w3.org%2FTR%2Fxmlschema11-2%2F%23>%0APREFIX%20rdfs%3A%20%20<http%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23>%0A%0ASELECT%20%3F千早の主語%0AWHERE%20%7B%0A%20%20%3F千早の主語%20schema%3Aname%20%3Fアイドル名.%0A%20%20filter(contains(%3Fアイドル名%2C"如月千早"))%0A%7D'>こちら</a>。
+                <br>
+                <code>
+                    <span class="IRI">https://sparql.crssnky.xyz/imasrdf/RDFs/detail/Kisaragi_Chihaya</span>
+                </code>が主語として得られたと思います。
+                <br>察しの良い方はお気付きでしょうが、im@sparqlでの主語は
+                <code>
+                    <span class="IRI">https://sparql.crssnky.xyz/imasrdf/RDFs/detail/[ローマ字]</span>
+                </code>という形式を取っています。アイドルやスタッフ(社長も含め、im@sparqlでは裏方の人間をスタッフとしています)に限った話ですが。
+                <br>衣装(
+                <code>
+                    <span class="Prefix">imas:Clothes</span>
+                </code>)は、英語をカタカナ表記したものが多いのでそのまま英語に直したものだったり、ライブ(
+                <code>
+                    <span class="Prefix">imas:Live</span>
+                </code>)単純に名称をURIencodeかけただけだったりと、バラバラになってるのでその都度調べることをおすすめします。
+                <br>また、im@sparqlの主語にそのままブラウザでアクセスすると、その主語が持つ述語と目的語を表示する機能があります。パッと確認したいときなどに使ってやってください。
+                <br>
+                <dt>主語からデータを取得する</dt>
+
             </dd>
         </dl>
     </div>
