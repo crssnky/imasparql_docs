@@ -135,7 +135,23 @@
                 <br>また、im@sparqlの主語にそのままブラウザでアクセスすると、その主語が持つ述語と目的語を表示する機能があります。パッと確認したいときなどに使ってやってください。
                 <br>
                 <dt>主語からデータを取得する</dt>
-
+                ようやく主語を取得できました。あとはこれを使って取得するだけです。
+                <script src="https://gist.github.com/crssnky/d1ca0d438b1c9ebd9f53a7fcdf98f415.js"></script>
+                もうサンプルクエリを示す必要があったのか...という感じですが...結果は
+                <a href="https://sparql.crssnky.xyz/spql/imas/query?force-accept=text%2Fplain&query=PREFIX%20schema%3A%20<http%3A%2F%2Fschema.org%2F>%0APREFIX%20rdf%3A%20<http%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23>%0APREFIX%20imas%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FURIs%2Fimas-schema.ttl%23>%0APREFIX%20imasrdf%3A%20<https%3A%2F%2Fsparql.crssnky.xyz%2Fimasrdf%2FRDFs%2Fdetail%2F>%0APREFIX%20foaf%3A%20<http%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F>%0APREFIX%20math%3A%20<http%3A%2F%2Fwww.w3.org%2F2005%2Fxpath-functions%2Fmath%23>%0APREFIX%20xsd%3A%20<https%3A%2F%2Fwww.w3.org%2FTR%2Fxmlschema11-2%2F%23>%0APREFIX%20rdfs%3A%20%20<http%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23>%0A%0ASELECT%20*%0AWHERE%20%7B%0A%20%20imasrdf%3AKisaragi_Chihaya%20%3F述語%20%3F目的語%0A%7D">こちら</a>。
+                <br>
+                <dt>クエリをまとめる</dt>
+                この流れを見て、「3ステップも踏まないといけないのか！！」と思ったのは少ないと思います。もちろんこの3つのクエリは1つにまとめることができます。
+                <script src="https://gist.github.com/crssnky/e16282fa568ddf4686c47b1c94871efe.js"></script>
+                1つ目の
+                <code>
+                    <span class="Reserved-Word">filter</span>
+                </code>まででアイドルを表すクラスを取得し、2つ目の
+                <code>
+                    <span class="Reserved-Word">filter</span>
+                </code>までで、そのインスタンスの中から"千早"という名前を持つものを探しています。そして最後にマッチした主語に対して述語と目的語を尋ねているという形ですね。
+                <br>
+                <br>以上で簡単なクエリを考えてみるパートは終了です。今回は千早さんのプロフィールにたどり着くための考え方の流れを示しました。1つ目のサンプルクエリから分かるようにim@sparqlには多くの独自クラスに基づいたデータが存在しています。ぜひ、自分の中の知識と照らし合わせながら様々なクエリを投げてみてください。きっと、SPARQLが自然と身につくはずです。
             </dd>
         </dl>
     </div>
