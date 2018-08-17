@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51356556-8');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
+    <title>im@sparqlを組み込んでみる</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link async href="../css/index.css" rel="stylesheet">
+    <script defer src="../../js/jquery.min.js"></script>
+    <script defer src="../../js/jquery.xdomainajax.js"></script>
+    <script defer src="../../js/bootstrap.min.js"></script>
+    <script defer src="../js/index.js"></script>
+</head>
+
+<body onload="loadCommon()">
+    <!-- 共通 -->
+    <div id="common"></div>
+    <!-- 説明 -->
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <span class="aks">im@sparqlを組み込んでみる</span>
+                <span class="aks">
+                    <small>Webアプリとして使う</small>
+                </span>
+            </h1>
+        </div>
+        <br>
+        <dl class="descript">
+            <dd>
+                実際にクエリを送って結果を受け取り、表示するという方法がおそらく簡単な利用方法だと思います。
+                <br>そこで今回は、前後3日を含む1週間にアイドルの誕生日があれば表示するWebページを作成します。
+                <br>完成形は<a href="./4-1.html">こちら</a>
+            </dd>
+            <dt>土台を作る</dt>
+            <dd>
+                表示するWebページのHTMLはこんな感じです。
+            </dd>
+            <script src="https://gist.github.com/crssnky/e7aba256575556bad498de1570de7b6a.js"></script>
+            <dd>
+                HTMLについては、特に難しくないので説明しません。<code>divタグ</code>に入れ込むんだなってことが感じ取られますね。
+            </dd>
+            <br>
+            <dt>クエリを作る</dt>
+            <dd>
+                前後3日を含む1週間にアイドルの誕生日を取得するクエリはこちら
+            </dd>
+            <script src="https://gist.github.com/crssnky/61d836872b4b9704aa362f474ea91dd4.js"></script>
+            <dd>
+                6,7行目から解説します。この2行でアイドルの名前と誕生日を取得します。ちなみに7行目で2つの述語を<a href="https://www.w3.org/TR/sparql11-query/#pp-language">OR</a>で取っているのは、一方か両方がマッチすれば良いというものです。理由は<code><span class="Prefix">schema:alternateName</span></code>のみしか無いアイドル(例:ジュリア・詩花)も同じ変数<code>?n</code>で取得できるようにするためです。
+                <br>8,9行目は、値を変数に代入するBIND文です。ついでに<code>gMonthDay型</code>にキャストしています。また、本来ならば3日前と3日後の日にちの文字列が入るのですが、サンプルクエリは<code>xx</code>で表現しています。
+                <br>10行目でフィルタリングします。3日前以降かつ、3日後以前の日にちのみを取得します。
+                <br>11行目の左側ではまず、主語<code>?sub</code>でグルーピングしています。理由は、<code><span class="Prefix">schema:name</span></code>, <code><span class="Prefix">schema:alternateName</span></code>の両方が存在する場合(例:エミリー)、それぞれのデータとして分けられてしまいますのでちゃんと一人のアイドルとしてまとめるために主語でグルーピングしています。
+                <br>右側では、わかりやすいようにデータを日付順に並び替えています。
+                <br>最後に4行目です。主語<code>?sub</code>されているので、他の変数についてはSAMPLE文で抽出しています。
+            </dd>
+            <br>
+            <dt>クエリを送って、返ってきた結果を表示する</dt>
+            <dd>
+                クエリを扱うJavaScriptはこちら。HTMLの<code>scriptタグ</code>に埋め込んでください。
+            </dd>
+            <script src="https://gist.github.com/crssnky/71305395f4bba9d5e7f1169dc12f343d.js"></script>
+            <dd>
+                1行目から順に説明します。定数<code>URL</code>はエンドポイントを示します。
+                <br>2行目は、クエリの文字列を定義しています。配列にしているのは、上記のクエリで<code>xx</code>にしていた部分を切り取っておき、あとで取得する3日前3日後の文字列と結合するためです。
+            </dd>
+        </dl>
+    </div>
+</body>
+
+</html>
