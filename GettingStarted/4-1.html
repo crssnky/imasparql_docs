@@ -48,7 +48,6 @@
                 console.log(event.target.status + ':' + event.target.statusText);
                 return;
             }
-            const now = new Date();
             const json = JSON.parse(e.target.responseText)["results"]["bindings"];
             json.forEach(i => {
                 const current = i["date"]["value"];
