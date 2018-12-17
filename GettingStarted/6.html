@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51356556-8');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
+    <title>im@sparqlに貢献する</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link async href="../css/index.css" rel="stylesheet">
+    <script defer src="../../js/jquery.min.js"></script>
+    <script defer src="../../js/jquery.xdomainajax.js"></script>
+    <script defer src="../../js/bootstrap.min.js"></script>
+    <script defer src="../js/index.js"></script>
+</head>
+
+<body onload="loadCommon()">
+    <!-- 共通 -->
+    <div id="common"></div>
+    <!-- 説明 -->
+    <div class="container">
+        <div class="page-header">
+            <h1>
+                <span class="aks">im@sparqlに貢献する</span>
+                <span class="aks"><small>データベースを編集する</small></span>
+            </h1>
+        </div>
+        <br>
+        <dl class="descript">
+            <dt>データベースについて</dt>
+            <dd>
+                「Getting Started」の<a href="./1.html">第1回</a>でも触れましたが、im@sparqlというデータベースの中身はGitHub上で管理されています。
+                <ul>
+                    <li>
+                        <a href="https://github.com/imas/imasparql">https://github.com/imas/imasparql</a>
+                    </li>
+                </ul>
+                im@sparqlを実現するソフトウェア<a href="https://jena.apache.org/documentation/fuseki2/">Apache Jena Fuseki</a>は、Linked RDFやTurtleを人間が読める形式のまま読み込むことで、SPARQLのサーバーとして働くことができます。なので、このリポジトリにあるRDF・Turtleを編集することでデータベース自体を編集することができます。(ただし、GitHubの変更が即座に適用されることはなく、現在は<a href="https://twitter.com/croMisa">@croMisa</a>が手動で適用させる必要があります)
+            </dd>
+            <br>
+            <dt>Linked RDFについて</dt>
+            <dd>
+                千早さんの部分で説明します。<br>
+                <script src="https://gist.github.com/crssnky/b6e15d0f0c79613e9467f619a66c1d95.js"></script>
+                2018/08/31現在の千早さんの部分はこのようになっています。<br>
+                <code><span class="Prefix">rdf:Description</span></code>で囲った部分が千早さんのインスタンスですね。<code>rdf:about</code>でそのインスタンスのユニークなIDを付けています。<br>
+                先に28行目の説明をします。<code><span class="Prefix">rdf:type</span></code>では、そのインスタンスがどのクラスのものなのかを表します。千早さんの場合、im@sparqlが独自に定めたクラスやプロパティが記述された<code><a href="https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl">https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl</a></code>にある<code>Idolクラス</code>を指定しています。<code>rdf:resource</code>はURIで指定する時に使用します。<br>
+                2～27行目は、主語(<code><span class="Prefix">rdf:Description</span></code>(千早さん))に対する述語と目的語を記述しています(28行目もそうだと言える)。XMLのタグの部分(<code><span class="Prefix">imas:Attribute</span></code>や<code><span class="Prefix">schema:name</span></code>など)が述語で、タグに囲まれたテキストが目的語になります。タグに付いている属性(<code>rdf:datatype</code>か<code>xml:lang</code>)は、目的語の型を示します。floatとかstringといった、見慣れたものがあると思います。<br>
+                ここで注意してほしいのですが、<code>rdf:datatype</code>と<code>xml:lang</code>は併用しないほうが良いらしい(ApacheJenaFusekiで警告が出る)ので、分けて使用します。言語では無い文字列(VoDaViなど)はstring型にし、それ以外は言語(enやjaなど)を示すことにしています。<br>
+                RDFでは、述語は何度被っても良いみたいです。実際、<code><span class="Prefix">imas:cv</span></code>はミンゴスの名前と<a href="http://ja.dbpedia.org">DBpedia</a>でのURIの2つがあります。DBpediaはWikipediaをSPARQLで検索できるようにしたデータベースです。
+            </dd>
+            <br>
+            <dt>貢献者募集！！</dt>
+            RDFの説明はこんなものでしょうか。im@sparqlは皆様の集合知で作るアイマスワールドのデータベースです。皆様のお力が必要です。どうぞ気軽にPullRequestをお送りください。im@sparqlの<a href="https://sparql.crssnky.xyz/imas/">サイト</a>には、僕が作ったRDFmakerへのリンクもあります。フォーマットに従って入力すると手軽にLinked RDFのインスタンスを生成できるものなので活用してください。<br>
+            個人的には、<a href="https://github.com/imas/imasparql/blob/master/RDFs/Unit.rdf">ユニット情報</a>や<a href="https://github.com/imas/imasparql/blob/master/RDFs/Clothes.rdf">衣装情報</a>がまだまだ不足していると感じています。特に、僕はそこまでシンデレラガールズに触れているわけではないのでソーシャルゲーム版の方の情報は追いきれていません。<br>
+            まずがご自身の担当アイドルの情報だけでも追加してみてはいかがでしょうか。「うちの子の情報が足りてないじゃないか！」と感じたらぜひともお願いします。もしRDFが難しければ、GitHubにissueを飛ばすだけでも構いません。
+        </dl>
+    </div>
+    <br>
+    <br>
+    <br>
+</body>
+
+</html>
