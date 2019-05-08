@@ -2,70 +2,70 @@
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-        gtag('config', 'UA-51356556-8');
-    </script>
+    gtag('config', 'UA-51356556-8');
+  </script>
 
-    <meta charset="utf-8" />
-    <title>アイドルの誕生日</title>
+  <meta charset="utf-8" />
+  <title>アイドルの誕生日</title>
 </head>
 
 <body>
-    <h1>直近の誕生日</h1>
-    <div id="0"></div>
-    <div id="1"></div>
-    <div id="2"></div>
-    <div id="3"></div>
-    <div id="4"></div>
-    <div id="5"></div>
-    <div id="6"></div>
-    <script>
-        const URL = "https://sparql.crssnky.xyz/spql/imas/query?query=";
-        const Query = ['PREFIX schema: <http://schema.org/>PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>SELECT (sample(?o) as ?date) (sample(?n) as ?name)WHERE {?sub schema:birthDate ?o;schema:name|schema:alternateName ?n;bind("', '"^^xsd:gMonthDay as ?3ago)bind("', '"^^xsd:gMonthDay as ?3later)FILTER(?o>=?3ago && ?o<=?3later).}group by(?sub) order by(?o)'];
+  <h1>直近の誕生日</h1>
+  <div id="0"></div>
+  <div id="1"></div>
+  <div id="2"></div>
+  <div id="3"></div>
+  <div id="4"></div>
+  <div id="5"></div>
+  <div id="6"></div>
+  <script>
+    const URL = "https://sparql.crssnky.xyz/spql/imas/query?query=";
+    const Query = ['PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX schema: <http://schema.org/>PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>SELECT (sample(?o) as ?date) (sample(?n) as ?name)WHERE {?sub schema:birthDate ?o;rdfs:label ?n;bind("', '"^^xsd:gMonthDay as ?3ago)bind("', '"^^xsd:gMonthDay as ?3later)FILTER(?o>=?3ago && ?o<=?3later).}group by(?sub) order by(?o)'];
 
-        const date = new Date();
-        var strings = [];
-        date.setDate(date.getDate() - 3)
-        for (var i = 0; i < 7; i++) {
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            strings.push("--" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day));
-            document.getElementById(i).innerHTML = "<h3>" + month + "月" + day + "日</h3>"
-            date.setDate(date.getDate() + 1);
-        }
+    const date = new Date();
+    var strings = [];
+    date.setDate(date.getDate() - 3)
+    for (var i = 0; i < 7; i++) {
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      strings.push("--" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day));
+      document.getElementById(i).innerHTML = "<h3>" + month + "月" + day + "日</h3>"
+      date.setDate(date.getDate() + 1);
+    }
 
-        const request = new XMLHttpRequest();
-        request.addEventListener("load", (e) => {
-            if (e.target.status != 200) {
-                console.log(event.target.status + ':' + event.target.statusText);
-                return;
-            }
-            const json = JSON.parse(e.target.responseText)["results"]["bindings"];
-            json.forEach(i => {
-                const current = i["date"]["value"];
-                strings.forEach(function (j, index) {
-                    if (current === j) {
-                        const div = document.getElementById(index.toString());
-                        div.innerHTML += i["name"]["value"] + "<br>";
-                    }
-                });
-            });
+    const request = new XMLHttpRequest();
+    request.addEventListener("load", (e) => {
+      if (e.target.status != 200) {
+        console.log(event.target.status + ':' + event.target.statusText);
+        return;
+      }
+      const json = JSON.parse(e.target.responseText)["results"]["bindings"];
+      json.forEach(i => {
+        const current = i["date"]["value"];
+        strings.forEach(function (j, index) {
+          if (current === j) {
+            const div = document.getElementById(index.toString());
+            div.innerHTML += i["name"]["value"] + "<br>";
+          }
         });
-        request.addEventListener("error", () => {
-            console.log("Http Request Error");
-        });
-        request.open("GET", URL + encodeURIComponent(Query[0] + strings[0] + Query[1] + strings[strings.length - 1] + Query[2]));
-        request.send();
-    </script>
+      });
+    });
+    request.addEventListener("error", () => {
+      console.log("Http Request Error");
+    });
+    request.open("GET", URL + encodeURIComponent(Query[0] + strings[0] + Query[1] + strings[strings.length - 1] + Query[2]));
+    request.send();
+  </script>
 </body>
 
 </html>
