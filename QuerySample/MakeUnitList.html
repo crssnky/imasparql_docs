@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-51356556-8');
+  </script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1">
+  <title>MakeUnitList</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link async href="../css/index.css" rel="stylesheet">
+  <script defer src="../../js/jquery.min.js"></script>
+  <script defer src="../../js/jquery.xdomainajax.js"></script>
+  <script defer src="../../js/bootstrap.min.js"></script>
+  <script defer src="../js/index.js"></script>
+</head>
+
+<body onload="loadCommon();">
+  <!-- 共通 -->
+  <div id="common"></div>
+  <!-- 説明 -->
+  <div class="container">
+    <div class="page-header">
+      <h1>
+        <span class="aks">MakeUnitList</span>
+        <span class="aks"><small>アイドルごとに所属ユニットを取得する</small></span>
+      </h1>
+    </div>
+    <br>
+    <script src="https://gist.github.com/crssnky/681dd733ad77dd79b2455ebf61daf80b.js"></script>
+    <dl class="descript">
+      <dt>アイドルごとに所属ユニットを取得する</dt>
+      <dd>
+        ユニットメンバー、つまりアイドルごとに<code><a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#groupby"><span class="Reserved-Word">GroupBy</span></a></code>句で結果をまとめています。結果をまとめたことで、一つのグループにはアイドルのURIである<code>?m</code>が一つだけになりますが、ユニットのURIである<code>?s</code>が複数ある状態になります。
+        <br>こういう時は<code><span class="Reserved-Word">Group_ConCat</span></code>句で一つの答えにまとめられます。文字列として処理します。この時<code><span class="Reserved-Word">separator</span></code>を使い、各文字列の区切り文字を設定できます。設定しないとそのまま単純に結合されてしまいますが、分かりやすい区切り文字を設定することで、後々の処理で使えます。
+        <br>最後に<code><span class="Reserved-Word">as</span></code>句で<code><span class="Reserved-Word">Group_ConCat</span></code>の結果に変数名を付けています。付けないと自動で名前が付けられてしまうため、後々使うときに困ります。
+      </dd>
+    </dl>
+  </div>
+  <br>
+  <br>
+  <br>
+</body>
+
+</html>
