@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51356556-8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51356556-8');
+    </script>
+  <title>週間IM@Study03 - sample</title>
+  <link async rel="stylesheet" href="./sample.css">
+  <script async src="./sample.js"></script>
+</head>
+<body>
+  <div id="sub">
+    <p>UnitName:</p>
+    <input id="nameBox" type="text">
+    <button onclick="exe(nameBox)">shoot</button>
+    <p id="message"></p>
+  </div>
+  <div id="main" class="elements"></div>
+</body>
+</html>
